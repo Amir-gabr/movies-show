@@ -1,12 +1,19 @@
 //
 //
 //
+import Hero from "../components/customs/Hero";
+import ToTop from "../components/customs/ToTop";
+import MoviesCards from "../components/customs/MoviesCards";
 
 
 export default function Home() {
+
+
   return (
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        Hello
-      </main>
+    <main className="min-h-screen relative">
+      <Hero/>
+      <MoviesCards/>
+      <ToTop/>
+    </main>
   );
 }
