@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 //
 import { fetchMovies } from "@/lib/redux/moviesSlice";
 import { detailsData } from "@/lib/redux/detailsSlice";
+import { AppDispatch } from "@/lib/redux/store";
 //
 import Loader from "./Loader";
 //
@@ -22,8 +23,8 @@ import { MovieState } from "@/interfaces/MovieState";
 
 
 export default function MoviesCards() {
-  const dispatch = useDispatch<any>();
-  const { movies } = useSelector((state:MovieState) => state.movies);
+  const dispatch = useDispatch<AppDispatch>();
+  const movies = useSelector((state: MovieState) => state?.movies||[]);
   console.log(movies);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function MoviesCards() {
           <div className="">
             {movies && movies?.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 py-10 ">
-                {movies.map((movie:MovieState) => (
+                {movies.map((movie) => (
                   <div key={movie?.id} className="card flex flex-col rounded-xl">
                     <Image
                       className="rounded-t-xl"
@@ -66,7 +67,7 @@ export default function MoviesCards() {
                           <p
                             className="text-white hover:text-teal-600 duration-300 w-fit flex items-center gap-2"
                             onClick={() => {
-                              dispatch(detailsData(movie?.id)); 
+                              dispatch(detailsData(`${movie?.id}`)); 
                               console.log(movie?.id);
                             }}
                           >

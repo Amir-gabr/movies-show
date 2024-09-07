@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 //
 import { topRateMovies } from "@/lib/redux/topRateSlice";
 import { detailsData } from "@/lib/redux/detailsSlice";
+import { AppDispatch } from "@/lib/redux/store";
 //
 import { TopRateMoviesState } from "@/interfaces/MovieState";
 //
@@ -22,10 +23,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function TopRate() {
 
-    const dispatch = useDispatch<any>();
-    const  movies = useSelector(
-      (state:TopRateMoviesState) => state?.topRate?.movies
+    const dispatch = useDispatch<AppDispatch>();
+    const movies = useSelector(
+      (state: { topRate: { movies: TopRateMoviesState[] } }) =>
+        state?.topRate?.movies
     );
+
     console.log(movies);
 
     useEffect(() => {
@@ -50,23 +53,27 @@ export default function TopRate() {
     <>
       <div className="w-full h-[90vh]">
         <Slider {...settings}>
-          {  
-            movies?.map((movie: any) => (
-              <div key={movie?.id} className="border rounded-xl h-[300px]">
-                <Link
-                  href={`/details`} 
-                  passHref
-                  onClick={() => {
-                  dispatch(detailsData(movie?.id)); 
-                  console.log(movie?.id);
-                }}>
-                  <Image className="rounded-xl w-full h-full " src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={movie.title} width={200} height={200} />
-                </Link>
-              </div>
-            ))
-          }
+          {movies?.map((movie:TopRateMoviesState) => (
+            <div key={movie?.id} className="border rounded-xl h-[300px]">
+              <Link
+                href={`/details`}
+                passHref
+                onClick={() => {
+                  dispatch(detailsData(`${movie?.id}`));
+                }}
+              >
+                <Image
+                  className="rounded-xl w-full h-full "
+                  src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
+                  alt="image"
+                  width={200}
+                  height={200}
+                />
+              </Link>
+            </div>
+          ))}
         </Slider>
       </div>
     </>
-  )
+  );
 }

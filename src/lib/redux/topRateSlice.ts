@@ -45,7 +45,7 @@ const moviesSlice = createSlice({
       })
       .addCase(topRateMovies.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.movies = action.payload; // Store fetched movies
+        state.topMovies = action.payload; // Store fetched movies
         console.log(action.payload);
       })
       .addCase(topRateMovies.rejected, (state, action) => {

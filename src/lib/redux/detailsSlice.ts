@@ -42,7 +42,7 @@ const detailsSlice = createSlice({
       })
       .addCase(detailsData.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.movie = action.payload; // Store the movie details
+        state.details = action.payload; // Store the movie details
         console.log(action.payload);
       })
       .addCase(detailsData.rejected, (state, action) => {
