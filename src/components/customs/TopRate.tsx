@@ -24,12 +24,12 @@ import "slick-carousel/slick/slick-theme.css";
 export default function TopRate() {
 
     const dispatch = useDispatch<AppDispatch>();
-    const movies = useSelector(
-      (state: { topRate: { movies: TopRateMoviesState[] } }) =>
-        state?.topRate?.movies
+    const topMovies = useSelector(
+      (state: { topRate: { topMovies: TopRateMoviesState[] } }) =>
+        state?.topRate?.topMovies
     );
 
-    console.log(movies);
+    console.log(topMovies);
 
     useEffect(() => {
       dispatch(topRateMovies());
@@ -53,7 +53,7 @@ export default function TopRate() {
     <>
       <div className="w-full h-[90vh]">
         <Slider {...settings}>
-          {movies?.map((movie:TopRateMoviesState) => (
+          {topMovies?.map((movie:TopRateMoviesState) => (
             <div key={movie?.id} className="border rounded-xl h-[300px]">
               <Link
                 href={`/details`}

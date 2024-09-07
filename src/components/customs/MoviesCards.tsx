@@ -24,7 +24,7 @@ import { MovieState } from "@/interfaces/MovieState";
 
 export default function MoviesCards() {
   const dispatch = useDispatch<AppDispatch>();
-  const movies = useSelector((state: MovieState) => state?.movies||[]);
+  const movies = useSelector((state: MovieState) => state?.movies?.movies||[]);
   console.log(movies);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function MoviesCards() {
           <div className="">
             {movies && movies?.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 py-10 ">
-                {movies.map((movie) => (
+                {movies?.map((movie) => (
                   <div key={movie?.id} className="card flex flex-col rounded-xl">
                     <Image
                       className="rounded-t-xl"

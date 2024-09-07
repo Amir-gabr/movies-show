@@ -16,7 +16,7 @@ export interface MovieState {
 
 
 export interface DetailsState {
-  movie: {
+  details: {
     id: number;
     title: string;
     overview: string;

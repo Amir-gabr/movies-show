@@ -11,16 +11,19 @@ import Loader from "../../components/customs/Loader";
 import { FaStar } from "react-icons/fa6";
 
 export default function MovieDetails() {
-  const dispatch = useDispatch<AppDispatch>(); // Use the typed dispatch
-  // const details = useSelector((state: RootState) => state.details.movie);
-  const details: DetailsState = useSelector((state: DetailsState) => state);
-  console.log(details?.movie);
+  const dispatch = useDispatch<AppDispatch>(); 
+  const details: DetailsState | null = useSelector(
+    (state: { details: { movie: DetailsState | null } }) => state?.details
+  );
+  console.log(details);
+
+
 
   useEffect(() => {
-    if (details?.movie?.id) {
-      dispatch(detailsData(`${details?.movie?.id}`));
+    if (details?.details?.id) {
+      dispatch(detailsData(`${details?.details?.id}`));
     }
-  }, [dispatch, details?.movie?.id]);
+  }, [dispatch, details?.details?.id]);
 
   return (
     <>
@@ -30,8 +33,8 @@ export default function MovieDetails() {
             <div className="text-white">
               <Image
                 className="rounded-xl w-full h-full object-cover"
-                src={`https://image.tmdb.org/t/p/w500${details?.movie?.backdrop_path}`}
-                alt={details?.movie?.title}
+                src={`https://image.tmdb.org/t/p/w500${details?.details?.backdrop_path}`}
+                alt={details?.details?.title}
                 width={500}
                 height={500}
               />
@@ -41,8 +44,8 @@ export default function MovieDetails() {
                 <div className="min-w-44 min-h-60">
                   <Image
                     className="rounded-xl w-full h-full object-cover"
-                    src={`https://image.tmdb.org/t/p/w500${details?.movie?.poster_path}`}
-                    alt={details?.movie?.title}
+                    src={`https://image.tmdb.org/t/p/w500${details?.details?.poster_path}`}
+                    alt={details?.details?.title}
                     width={200}
                     height={300}
                   />
@@ -50,13 +53,13 @@ export default function MovieDetails() {
                 <div className="">
                   <p className="">
                     <span className="text-lg font-semibold text-pink-600">
-                      {details?.movie?.title}
+                      {details?.details?.title}
                     </span>{" "}
                     {" : "}
-                    {details?.movie?.overview}
+                    {details?.details?.overview}
                   </p>
                   <p className="text-white mx-auto flex items-center gap-2 mt-10">
-                    Rating: {details?.movie?.vote_average?.toFixed(1)}
+                    Rating: {details?.details?.vote_average?.toFixed(1)}
                     <FaStar className="text-lg text-amber-600" />
                   </p>
                 </div>
@@ -64,8 +67,8 @@ export default function MovieDetails() {
 
               {/* Genres */}
               <div className="flex items-center flex-wrap gap-4 mt-4 border-b py-2">
-                {Array.isArray(details?.movie?.genres) &&
-                  details?.movie?.genres.map(
+                {Array.isArray(details?.details?.genres) &&
+                  details?.details?.genres.map(
                     (name: { id: number; name: string }) => (
                       <p
                         key={name?.id}
@@ -80,8 +83,8 @@ export default function MovieDetails() {
               {/* Languages */}
               <div className="flex items-center flex-wrap gap-4 mt-4 border-b py-2">
                 languages:{" "}
-                {Array.isArray(details?.movie?.spoken_languages) &&
-                  details?.movie?.spoken_languages.map(
+                {Array.isArray(details?.details?.spoken_languages) &&
+                  details?.details?.spoken_languages.map(
                     (lang: { iso_639_1: string; name: string }) => (
                       <p key={lang?.iso_639_1} className="">
                         <span className="text-lg font-semibold text-pink-600">
@@ -95,8 +98,8 @@ export default function MovieDetails() {
               {/* Countries */}
               <div className="flex items-center flex-wrap gap-4 mt-4 border-b py-2">
                 country:{" "}
-                {Array.isArray(details?.movie?.production_countries) &&
-                  details?.movie?.production_countries.map(
+                {Array.isArray(details?.details?.production_countries) &&
+                  details?.details?.production_countries.map(
                     (country: { iso_3166_1: string; name: string }) => (
                       <p key={country?.iso_3166_1} className="">
                         <span className="text-lg font-semibold text-pink-600">
