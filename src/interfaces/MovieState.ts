@@ -17,6 +17,8 @@ export interface MovieState {
 
 export interface DetailsState {
   details: {
+  details: {
+    details: object | null;
     id: number;
     title: string;
     overview: string;
@@ -26,6 +28,7 @@ export interface DetailsState {
     genres: Genre[];
     spoken_languages: Language[];
     production_countries: Country[];
+  };
   };
 }
 

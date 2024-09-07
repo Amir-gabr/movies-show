@@ -24,7 +24,7 @@ import { MovieState } from "@/interfaces/MovieState";
 
 export default function MoviesCards() {
   const dispatch = useDispatch<AppDispatch>();
-  const movies = useSelector((state: MovieState) => state?.movies?.movies||[]);
+  const movies = useSelector((state: { movies: MovieState }) => state?.movies?.movies||[]);
   console.log(movies);
 
   useEffect(() => {

@@ -12,18 +12,14 @@ import { FaStar } from "react-icons/fa6";
 
 export default function MovieDetails() {
   const dispatch = useDispatch<AppDispatch>(); 
-  const details:any = useSelector(
-    (state: { details: { details: DetailsState | null } }) => state?.details
-  );
+  const details = useSelector((state: DetailsState) => state?.details);
   console.log(details);
-
-
 
   useEffect(() => {
     if (details?.details?.id) {
       dispatch(detailsData(`${details?.details?.id}`));
     }
-  }, [dispatch, details?.details?.id]);
+  }, [dispatch, details]);
 
   return (
     <>
